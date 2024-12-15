@@ -22,6 +22,9 @@ class Home extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        scrolledUnderElevation: 0,
         toolbarHeight: 68,
         centerTitle: true,
         title: Image.asset(
@@ -32,9 +35,7 @@ class Home extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width / 1,
-          height: MediaQuery.of(context).size.height / 1,
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,12 +50,16 @@ class Home extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      'Hello, $email',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        'Hello, $email',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -77,7 +82,7 @@ class Home extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/heroimage.jpg',
                     width: MediaQuery.of(context).size.width / 1,
-                    height: 190,
+                    height: 200,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -86,17 +91,18 @@ class Home extends StatelessWidget {
                 'Communities',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: communities.length,
-                  itemBuilder: (context, index) {
-                    final community = communities[index];
-                    return CardCommunities(
-                        title: community['title']!,
-                        subtitle: community['subtitle']!);
-                  },
-                ),
-              )
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: communities.length,
+                itemBuilder: (context, index) {
+                  final community = communities[index];
+                  return CardCommunities(
+                    title: community['title']!,
+                    subtitle: community['subtitle']!,
+                  );
+                },
+              ),
             ],
           ),
         ),

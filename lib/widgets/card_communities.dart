@@ -12,6 +12,7 @@ class CardCommunities extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Card(
+        color: Colors.white,
         elevation: 0,
         child: ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 0),
